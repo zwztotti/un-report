@@ -1,14 +1,8 @@
+# Analysis relationship between GDP and life expectancy
 library(tidyverse)
 library(readr)
 gapminder_1997 <- read_csv("gapminder_1997.csv")
 View(gapminder_1997)
-
-name <- "Ben"
-name
-age <- 26
-age
-
-name_character <- "Harry Potter"
 
   
 test <- read_csv("gapminder_1997.csv")  # when to use double quotation mark?
