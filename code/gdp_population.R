@@ -47,6 +47,7 @@ head(gapminder_data)  #Preview the first few rows of the data table
 
 ggplot(data = gapminder_data)+
   aes(x = year, y = lifeExp, color = continent)+
-  geom_boxplot()
+  geom_point()
   
+ggsave("figures/gdpPercap_lifeExp.png") #Save the figures 
 
