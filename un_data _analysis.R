@@ -122,7 +122,41 @@ co2_emissions_dirty %>%
   select(country, year, series, value) %>% 
   mutate(series = recode(series, 
                          "Emissions (thousand metric tons of carbon dioxide)" = "total_emissions", 
-                         "Emissions per capita (metric tons of carbon dioxide)" = "per_capita_emissions"))
+                         "Emissions per capita (metric tons of carbon dioxide)" = "per_capita_emissions")) %>% 
+  pivot_wider(names_from = series, values_from = value) #把数据换成横向展示
 
+
+co2_emissions_dirty %>% 
+  select(country, year, series, value) %>% 
+  mutate(series = recode(series, 
+                         "Emissions (thousand metric tons of carbon dioxide)" = "total_emissions", 
+                         "Emissions per capita (metric tons of carbon dioxide)" = "per_capita_emissions")) %>% 
+  pivot_wider(names_from = series, values_from = value) %>% 
+  count(year)
+
+# 选择2005年的指定数据，然后可以删掉年份信息
+co2_emissions_dirty %>% 
+  select(country, year, series, value) %>% 
+  mutate(series = recode(series, 
+                         "Emissions (thousand metric tons of carbon dioxide)" = "total_emissions", 
+                         "Emissions per capita (metric tons of carbon dioxide)" = "per_capita_emissions")) %>% 
+  pivot_wider(names_from = series, values_from = value) %>% 
+  filter(year == 2005) %>% 
+  select(-year)
+
+# 把选择出来的数据放到一个新的数据集中
+co2_emissions <- co2_emissions_dirty %>% 
+  select(country, year, series, value) %>% 
+  mutate(series = recode(series, 
+                         "Emissions (thousand metric tons of carbon dioxide)" = "total_emissions", 
+                         "Emissions per capita (metric tons of carbon dioxide)" = "per_capita_emissions")) %>% 
+  pivot_wider(names_from = series, values_from = value) %>% 
+  filter(year == 2005) %>% 
+  select(-year)
+
+#如何合并两个数据集，他们有相同的分类情况下？inner_join 
+inner_join(gapminder_data, co2_emissions) # 默认情况下按照找到的第一行一样的数据的顺序合并Joining with `by = join_by(country)
+
+inner_join(gapminder_data, co2_emissions, join_by(country))
 
 
