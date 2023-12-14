@@ -159,4 +159,10 @@ inner_join(gapminder_data, co2_emissions) # 默认情况下按照找到的第一
 
 inner_join(gapminder_data, co2_emissions, join_by(country))
 
+gapminder_co2 <- inner_join(gapminder_data_2007, co2_emissions, join_by(country))
 
+
+ggplot(gapminder_co2, aes(x = gdpPercap, y = per_capita_emissions))+
+  geom_point() +
+  labs(x = "GDP (Per capita)", y = "CO2 emitted",
+       title = "Strong association between a nation's GDP and CO2 production")
