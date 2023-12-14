@@ -1,0 +1,33 @@
+---
+title: "A UN Report on the relationship between GDP and Life Expectancy"
+author: "Wenzhen Zhu"
+date: "2023-12-14"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+CTRL+ALT+I 添加新的Chunk
+```{r}
+library(tidyverse)
+```
+This report was prepared to the attention of the United Nation.
+
+```{r data}
+gapminder_1997 <- read_csv("gapminder_1997.csv")
+
+gapminder_1997
+```
+ggplot (gdpPercap, lifeExp, in points, color by continent, pop size by millions)
+```{r}
+ggplot(data=gapminder_1997) + 
+  aes(x=gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
+  labs(x = "GDP Per Capita", y = "Life Expectancy",
+       title = "Do people in wealthy countries live longer",
+       size = "Population (in millions)") +
+  geom_point() +
+  scale_color_brewer(palette = "Set1")
+```
+
